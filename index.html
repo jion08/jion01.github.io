@@ -1,12 +1,134 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>test page</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>최종</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      overflow-x: hidden;
+    }
+    .navbar {
+      display: flex;
+      align-items: center;
+      background-color: #333;
+      color: white;
+      padding: 10px 20px;
+    }
+    .menu-button {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+    }
+    .menu-button:hover {
+      color: #ccc;
+    }
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: -250px;
+      width: 250px;
+      height: 100%;
+      background-color: #444;
+      color: white;
+      overflow-y: auto;
+      box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+      transition: all 0.3s ease;
+      z-index: 1001; /* 사이드바가 오버레이 위로 오도록 설정 */
+    }
+    .sidebar.open {
+      left: 0;
+    }
+    .sidebar button {
+      display: block;
+      width: 100%;
+      padding: 15px 20px;
+      background-color: #444;
+      color: white;
+      border: none;
+      text-align: left;
+      font-size: 16px;
+      border-bottom: 1px solid #555;
+      cursor: pointer;
+    }
+    .sidebar button:hover {
+      background-color: #555;
+    }
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      display: none;
+      z-index: 1000; /* 오버레이가 사이드바 아래에 위치하도록 설정 */
+    }
+    .overlay.active {
+      display: block;
+    }
+    .content {
+      padding: 20px;
+    }
+  </style>
 </head>
 <body>
-  <p>Hello, World!</p>
+  <!-- 상단바 -->
+  <div class="navbar">
+    <button class="menu-button" onclick="toggleSidebar()">☰</button>
+    <h3 style="margin: 0 0 0 0px;">최종 사이트</h3> 
+  </div>
+
+  <!-- 오버레이 -->
+  <div class="overlay" id="overlay" onclick="closeSidebar()"></div>
+
+  <!-- 사이드바 -->
+  <div class="sidebar" id="sidebar">
+    <button onclick="openLink('https://example.com')">예시</button>
+    <button onclick="openLink('https://google.com')">구글</button>
+    <button onclick="openLink('https://naver.com')">네이버</button>
+  </div>
+
+  <!-- 메인 콘텐츠 -->
+  <div class="content">
+    <h2>콘텐츠 영역</h2>
+    <p>이곳은 메인 콘텐츠의 내용입니다.</p>
+  </div>
+
+  <script>
+    function toggleSidebar() {
+      const sidebar = document.getElementById("sidebar");
+      const overlay = document.getElementById("overlay");
+
+      // 사이드바 열기/닫기
+      if (sidebar.classList.contains("open")) {
+        closeSidebar();
+      } else {
+        sidebar.classList.add("open");
+        overlay.classList.add("active");
+      }
+    }
+
+    function closeSidebar() {
+      const sidebar = document.getElementById("sidebar");
+      const overlay = document.getElementById("overlay");
+
+      sidebar.classList.remove("open");
+      overlay.classList.remove("active");
+    }
+
+    // 버튼 클릭 시 링크를 현재 페이지에서 열기
+    function openLink(url) {
+      // 현재 페이지에서 링크 열기
+      window.location.href = url;
+
+      // 사이드바 닫기
+      closeSidebar();
+    }
+  </script>
 </body>
 </html>
